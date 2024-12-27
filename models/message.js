@@ -1,7 +1,7 @@
 const db = require('../config/db');
 
 const Message = {
-  // Create a message
+ 
   createMessage: (sender_id, recipient_id, content, course_id, status) => {
     return new Promise((resolve, reject) => {
       const query = `
@@ -18,7 +18,7 @@ const Message = {
     });
   },
 
-  // Get messages with filters
+  
   getMessages: (sender_id, recipient_id, date_from, date_to, status) => {
     return new Promise((resolve, reject) => {
       let query = `
@@ -27,7 +27,7 @@ const Message = {
       `;
       const params = [sender_id, recipient_id];
 
-      // Add filters dynamically
+    
       if (date_from && date_to) {
         query += ` AND sent_at BETWEEN ? AND ?`;
         params.push(date_from, date_to);
@@ -47,11 +47,9 @@ const Message = {
     });
   },
 
-  // Update message status
- // In your Message model
 updateStatus: async (id, status) => {
   try {
-    // Remove COALESCE/IFNULL and make it a direct update
+  
     const query = 'UPDATE messages SET status = ? WHERE id = ?';
 
     return new Promise((resolve, reject) => {
