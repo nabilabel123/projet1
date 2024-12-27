@@ -1,6 +1,6 @@
 const Message = require('../models/message');
 
-// Création d'un message
+
 const createMessage = async (req, res) => {
 
   const { sender_id, recipient_id, content, course_id, status } = req.body;
@@ -13,9 +13,9 @@ const createMessage = async (req, res) => {
   }
 };
 
-// Récupération des messages avec filtrage et pagination
+
 const getMessages = async (req, res) =>  {
-  console.log("Received request:", req.query); // Ajoutez cette ligne pour voir les paramètres dans la console du serveur
+  console.log("Received request:", req.query); 
   
   const { sender_id, recipient_id, date_from, date_to, status, limit = 10, offset = 0 } = req.query;
   
@@ -35,12 +35,12 @@ const getMessages = async (req, res) =>  {
 };
 
 
-// Mise à jour du statut d'un message
+
 const updateMessageStatus = async (req, res) => {
   const { id } = req.params;
   const { status } = req.body;
 
-  // Input validation
+  
   if (!id || !status) {
     return res.status(400).json({
       error: 'ID et status sont requis'
@@ -48,12 +48,12 @@ const updateMessageStatus = async (req, res) => {
   }
 
   try {
-    // Add logging to debug the input values
+    
     console.log('Attempting to update message:', { id, status });
 
     const result = await Message.updateStatus(id, status);
 
-    // Check if update was successful
+    
     if (!result || result.affectedRows === 0) {
       return res.status(404).json({
         error: 'Message non trouvé ou aucune mise à jour effectuée'
